@@ -1,0 +1,112 @@
+﻿
+
+[General Information]
+Function Name = Kinetic
+Brief Description = Fitting of reversible second-order rate equations
+Function Source = N/A
+Number Of Parameters = 6
+Function Type = User-Defined
+Function Form = Equations
+Path = 
+Number Of Independent Variables = 1
+Number Of Dependent Variables = 1
+Category = User Defined
+Function Model = Explicit
+
+
+[Fitting Parameters]
+Names = kon,koff,Ap,Pro,fz,fm
+Initial Values = 25000(V),0.0001(V),25.8(F),5.8(F),48000(V),70000(V)
+Meanings = Association rate constant,Dissociation rate constant,Receptor concentration,Target concentration,Fluorescence at time zero,Max fluorescence
+Lower Bounds = --(I, Off),0(I, On),--(I, Off),--(I, Off),--(I, Off),--(I, Off)
+Upper Bounds = --(I, Off),--(I, Off),--(I, Off),--(I, Off),--(I, Off),--(I, Off)
+Naming Method = User-Defined
+Number Of Significant Digits = 0,0,0,0,0,0
+Unit = ,,nM,nM,,
+Format = --,--,--,--,--,--
+CustomDisplay = --,--,--,--,--,--
+
+
+[Independent Variables]
+t = 
+
+
+[Dependent Variables]
+y = 
+
+
+[Formula]
+A=Ap*10^-9;
+P=Pro*10^-9;
+b=-kon*(A+P)-koff;
+delta=b^2-4*kon*kon*A*P;
+S2=(-b+sqrt(delta))/(2*kon);
+S1=(-b-sqrt(delta))/(2*kon);
+ava=(1-Exp(sqrt(delta)*t))/((S1/S2)-((1)*Exp(sqrt(delta)*t)));
+y=fz+((fm-fz))*ava;
+
+
+[Constraints]
+
+
+[Initializations]
+
+
+[After Fitting]
+
+
+[Constants]
+
+
+[Controls]
+General Linear Constraints = 0
+Initialization Scripts = 0
+Scripts After Fitting = 0
+Number Of Duplicates = N/A
+Duplicate Offset = N/A
+Duplicate Unit = N/A
+Generate Curves After Fitting = 1
+Curve Point Spacing = Uniform on X-Axis Scale
+Generate Peaks After Fitting = 1
+Generate Peaks During Fitting = 1
+Generate Peaks with Baseline = 1
+Paste Parameters to Plot After Fitting = 1
+Paste Parameters to Notes Window After Fitting = 1
+Generate Residuals After Fitting = 0
+Keep Parameters = 0
+Compile On Param Change Script = 1
+Enable Parameters Initialization = 1
+Treat All Numbers As Double = 1
+Use Initial Formula = 1
+AllowInitializingFixedParameters = 1
+
+
+[Compile Function]
+Compile = 0
+Compile Parameters Initialization = 1
+OnParamChangeScriptsEnabled = 0
+
+
+[Parameters Initialization]
+
+
+[Origin C Function Header]
+
+
+[Origin C Parameter Initialization Header]
+
+
+[Derived Parameter Settings]
+Unit = 
+Names = 
+Meanings = 
+
+
+[QuickCheck]
+t=1
+kon=25000
+koff=1E-4
+Ap=25.8
+Pro=5.8
+fz=48000
+fm=70000
